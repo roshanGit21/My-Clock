@@ -1,0 +1,278 @@
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: rgba(243, 243, 243);
+}
+
+
+#Watch-cont {
+  margin: auto;
+  display: flex;
+  /* grid-template-columns: 0.3fr 3fr; */
+  /* gap: 20px; */
+  align-items: center;
+  flex-direction: reverse;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.container {
+    z-index: 1;
+    grid-template-columns: 2 / 4;
+    width: 400px;
+    background: url(audio/background-watch.png);
+    height: 200px;
+    background-position: center;
+    border-radius: 20px;
+    /* border: 5px solid black; */
+    /* margin: auto; */
+    overflow-y: hidden;
+}
+
+h2 {
+    text-align: center;
+    font-size: 4rem;
+    margin: 0;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: aliceblue;
+}
+
+.day-date h3 {
+    text-align: center;
+    font-size: 1.2rem;
+    margin: 0;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: aliceblue;
+}
+
+
+.button {
+    height: 40px;
+    margin: 0;
+    background-color: rgb(43, 226, 137);
+    border: 0;
+    font-weight: bold;
+    font-size: 1.1rem;
+    font-family: system-ui;
+}
+
+.btn-border {
+  border-bottom: 5px solid rgb(10, 75, 154);
+}
+
+
+.display {
+    display: none;
+}
+
+#alarms-container {
+    width: 400;
+    display: none;
+    grid-template-rows: repeat(1, 1fr);
+    text-align: center;
+}
+
+
+
+.alarm {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: center;
+    margin-bottom: 4px;
+    color: rgb(200, 200, 200);
+    background-color: rgba(32, 32, 32, 0.5);
+    border-radius: 10px;
+}
+
+.alarm p {
+    grid-column: 1 / 3;
+    padding-left: 10px;
+    text-align: left;
+}
+
+.alarm div {
+    margin: auto;
+}
+
+.alarm div:last-child {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+input[type=number] {
+    display: inline-block;
+    margin: auto;
+    width: 33px;
+    background-color: inherit;
+    border: none;
+    color: rgb(200, 200, 200);
+    font-weight: bold;
+    font-size:medium;
+}
+
+#add-alarm {
+    padding-top:  5px;
+    /* display: block; */
+    width: 40px;
+    margin: 0 auto;
+    position: relative;
+}
+
+#add-alarm ~ p {
+    margin: 0;
+}
+
+#alarm-times {
+    max-height: 135px;
+    margin-top: 15px;
+    overflow-y: scroll;
+}
+
+#alarm-times::-webkit-scrollbar {
+    width: 10px;    
+}
+
+.alarm-times::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 5px;
+}
+
+#alarm-times::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background:  rgb(156, 156, 156)
+}
+
+.setAlarm {
+    height: 25px;
+}
+
+#alarm-times div:last-child button {
+    width: 80px;
+    border-radius: 8px;
+    background-color: #00c5a7;
+    border: 1px solid #00c5a7;
+    color: #383838;
+}
+
+#alarm-times div:last-child button:last-child {
+    background-color: rgb(255, 57, 83);
+    border: rgb(255, 57, 83);
+}
+
+#dialog {
+    width: 400px;
+    margin-top: 10px;
+    margin-left: 50px;
+    border-radius: 20px;
+    background: url(audio/background-watch.png);
+    background-position: center;
+    display: none;
+    align-items: center;
+    flex-direction: row;
+}
+
+#dialog p {
+    /* display: block; */
+    text-align: center;
+    width: 400px;
+    font-size: 2rem;
+    font-weight:normal;
+}
+
+
+#alarm-stop {
+    margin-right: 70px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    text-align: center;
+    background-color: #5dffe7;
+    border: 2px solid #5dffe7;
+    font-size: 1rem;
+}
+
+#stop-watch {
+    display: none;
+}
+
+#stop-watch-time {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    width: 300px;
+    margin: auto;
+    margin-top: 20px;
+    color: white;
+}
+
+#stop-watch-time p {
+    margin: auto;
+    font-size: 4rem;
+}
+
+#stop-watch-time p:not(p:last-of-type)::after {
+    content: ":";
+}
+
+#stop-watch-time p:last-child {
+    margin-top: 1.01em;
+}
+
+#stop-watch-time p:last-of-type {
+    font-size: 2rem;
+}
+
+#stop-watch-btn-container {
+    margin: auto;
+}
+
+#stop-watch-btn-container button {
+    padding: 7px 10px;
+    width: 40px;
+    margin: 20px auto;
+    border-radius: 20px;
+    background-color: rgb(37, 211, 104);
+    border: 1px solid rgb(37, 211, 104);
+    font-weight: bold;
+    font-size: 1rem;
+    font-family: inherit;
+    color: rgb(0, 0, 0);
+}
+
+.main-btns {
+    transition: ease-in-out 0.5s;
+    transform: translate(50px);
+}
+
+.main-btns div {
+    display: flex;
+    width: 50px;
+    height: 50px;
+    background: url(audio/background-watch.png);
+    background-position: center;
+    border-radius: 100px;
+    transition: ease-in-out 0.5s;
+}
+
+
+.main-btns div:first-child {
+    transform: translateY(50px) scale(0.56);
+}
+
+.main-btns div:last-child {
+    transform: translateY(-50px) scale(0.56);
+}
+
+.main-btns .alarm-icon-cont {
+    transform: scale(0.56);  
+}
+
+.main-btns div svg {
+    /* display: block; */
+    margin: auto;
+    width: 30px;
+    height: 30px;
+}
+
+

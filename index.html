@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+    <link href="styles.css" rel="stylesheet" />
+    <script src="script.js" defer></script>
+    <script>
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker
+                .register("/service-worker.js")
+                .then(() => console.log("Service Worker registered"))
+                .catch(err => console.log("SW registration failed:", err));
+        }
+    </script>
+    <link rel="manifest" href="manifest.json">
+</head>
+
+<body>
+    <div id="Watch-cont">
+        <div class="main-btns">
+            <div class="clock-icon-cont">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#fff"
+                    class="clock-icon">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" class="clock-icon" />
+                </svg>
+            </div>
+            <div class="alarm-icon-cont">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#fff" class="alarm-icon">
+                    <path fill-rule="evenodd"
+                        d="M5.25 9a6.75 6.75 0 0 1 13.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 0 1-.297 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 1 1-7.48 0 24.585 24.585 0 0 1-4.831-1.244.75.75 0 0 1-.298-1.205A8.217 8.217 0 0 0 5.25 9.75V9Zm4.502 8.9a2.25 2.25 0 1 0 4.496 0 25.057 25.057 0 0 1-4.496 0Z"
+                        clip-rule="evenodd" class="alarm-icon-delegation" />
+                </svg>
+            </div>
+            <div class="stop-watch-icon-cont">
+                <svg xmlns="http://www.w3.org/2000/svg" width="37" height="45" fill="none" viewBox="0 0 37 45"
+                    class="stop-watch-icon">
+                    <circle cx="18.479" cy="26.287" r="16.706" stroke="#fff" stroke-width="3"
+                        class="stop-watch-icon-del" />
+                    <path stroke="#fff" stroke-width="1.7" d="M18.456 18.836v8.615M17.605 27.44h7.144"
+                        class="stop-watch-icon-del" />
+                    <path fill="#fff"
+                        d="M35.237 11.929A2 2 0 1 0 32.41 9.1l1.414 1.415zm-4.86 2.03 1.415 1.415 3.445-3.445-1.414-1.414L32.409 9.1l-3.445 3.446zM.632 11.929A2 2 0 0 1 3.46 9.1l-1.414 1.415zm4.86 2.03-1.415 1.415-3.445-3.445 1.414-1.414L3.46 9.1l3.445 3.446z"
+                        class="stop-watch-icon-del" />
+                    <path stroke="#fff" stroke-width="3" d="M18.488 8.081V1.24" class="stop-watch-icon-del" />
+                    <path stroke="#fff" stroke-linecap="round" stroke-width="3" d="M21.92 1.79h-6.883"
+                        class="stop-watch-icon-del" />
+                </svg>
+            </div>
+        </div>
+        <div class="container">
+            <div class="clock">
+                <div class="currentTime">
+                    <h2></h2>
+                </div>
+                <div class="day-date">
+                    <h3></h3>
+                </div>
+            </div>
+            <div id="alarms-container">
+                <div id="alarm-times">
+
+                </div>
+                <!-- <div class="alarm">
+                <p>Alarm 1</p>
+                <div>
+                    <input type="number" min="1" max="24" class="aHr" id="hr" placeholder="0">
+                    <input type="number" min="1" max="60" class="aMin" id="min" placeholder="0">
+                </div>
+                <button type="button" id="set-alarm">Set alarm</button>
+                <button type="button" id="delete-alarm">Delete</button>
+            </div> -->
+                <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" id="add-alarm">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                    <p>Add Alarm</p>
+                </div>
+            </div>
+            <div id="stop-watch">
+                <div id="stop-watch-time">
+                    <p class="stop-hr">00</p>
+                    <p class="stop-min">00</p>
+                    <p class="stop-sec">00</p>
+                    <p class="stop-milsec">00</p>
+                </div>
+                <div id="stop-watch-btn-container">
+                    <button id="start-stop-watch" type="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="stoped">
+                            <path fill-rule="evenodd"
+                                d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                            class="playing display">
+                            <path fill-rule="evenodd"
+                                d="M6.75 5.25a.75.75 0 0 1 .75-.75H9a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H7.5a.75.75 0 0 1-.75-.75V5.25Zm7.5 0A.75.75 0 0 1 15 4.5h1.5a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H15a.75.75 0 0 1-.75-.75V5.25Z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                    <button id="restart" type="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="reset">
+                            <path fill-rule="evenodd"
+                                d="M4.755 10.059a7.5 7.5 0 0 1 12.548-3.364l1.903 1.903h-3.183a.75.75 0 1 0 0 1.5h4.992a.75.75 0 0 0 .75-.75V4.356a.75.75 0 0 0-1.5 0v3.18l-1.9-1.9A9 9 0 0 0 3.306 9.67a.75.75 0 1 0 1.45.388Zm15.408 3.352a.75.75 0 0 0-.919.53 7.5 7.5 0 0 1-12.548 3.364l-1.902-1.903h3.183a.75.75 0 0 0 0-1.5H2.984a.75.75 0 0 0-.75.75v4.992a.75.75 0 0 0 1.5 0v-3.18l1.9 1.9a9 9 0 0 0 15.059-4.035.75.75 0 0 0-.53-.918Z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+        <div id="dialog">
+            <p id="alarm-time"></p>
+            <div>
+                <button type="button" id="alarm-stop">Stop</button>
+            </div>
+        </div>
+        <audio src="audio/Cuco - Si Me Voy (feat. The Marías) [Official Video].wav"></audio>
+    </div>
+
+</body>
+
+</html>
